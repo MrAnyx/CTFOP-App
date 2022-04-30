@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Submit{% endblock %}
+
+{% block body %}
+    <h1>Submit a solution</h1>
+
+    {{ form_start(submitForm) }}
+    {{ form_row(submitForm.answer, {
+        label: 'Answer'
+    }) }}
+
+    <button type="submit" class="btn">Submit</button>
+    {{ form_end(submitForm) }}
+{% endblock %}
