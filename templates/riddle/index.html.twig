@@ -2,12 +2,21 @@
 
 {% block title %}Riddles{% endblock %}
 
+{% set difficultyMapper = [
+    'easy','easy','normal','normal','medium','medium','hard','hard','impossible','impossible'
+] %}
+
+{% block style%}
+    <link rel="stylesheet" href="{{asset('styles/riddles.css')}}">
+{% endblock%}
+
 {% block body %}
     <table class="table table-hover">
         <thead>
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
+            <th scope="col">Image</th>
             <th scope="col">Difficulty</th>
             <th scope="col">Solvers</th>
             <th scope="col">Date</th>
@@ -19,11 +28,17 @@
             <tr>
                 <td><a href="{{url('app_submit', {id: riddle.id})}}">{{riddle.id}}</a></td>
                 <td>{{riddle.name}}</td>
-                <td>{{riddle.difficulty}}</td>
+                <td><a href="{{riddle.image}}" target="_blank">Image link</a></td>
+
+                <td>
+                    <div class="difficulty-indicator {{difficultyMapper[riddle.difficulty - 1]}}">
+                        {{riddle.difficulty}}
+                    </div>
+                </td>
                 <td>{{riddle.scores|length}}</td>
                 <td>{{riddle.createdAt|date("m/d/Y")}}</td>
 
-                {% if app.user.hasSolved(riddle) %}
+                {% if app.user != null and app.user.hasSolved(riddle) %}
                     <td>{{riddle.token}}</td>
                 {% else %}
                     <td></td>

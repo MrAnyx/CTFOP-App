@@ -3,13 +3,33 @@
 {% block title %}Submit{% endblock %}
 
 {% block body %}
-    <h1>Submit a solution</h1>
+    <div class="container mt-4">
+        <h1 class="h3 mb-3 font-weight-normal">Submit a solution</h1>
 
-    {{ form_start(submitForm) }}
-    {{ form_row(submitForm.answer, {
-        label: 'Answer'
-    }) }}
+        {% for message in app.flashes('fail') %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+        {% endfor%}
 
-    <button type="submit" class="btn">Submit</button>
-    {{ form_end(submitForm) }}
+        You can download the corresponding image using this <a href="{{riddle.image}}" target="_blank">link</a>
+
+        {{ form_start(submitForm) }}
+
+            {{ form_label(submitForm.answer, 'Answer', {
+                'label_attr': {
+                    'for': 'answer',
+                    'class': 'mt-3'
+                }
+            }) }}
+            {{ form_widget(submitForm.answer, {
+                'attr': {
+                    'class': 'form-control',
+                    'id': 'answer'
+                }
+            }) }}
+
+            <button type="submit" class="btn btn-lg btn-primary mt-3">Submit</button>
+        {{ form_end(submitForm) }}
+    </div>
 {% endblock %}

@@ -8,14 +8,30 @@
 
 {% block body %}
 
+    <div class="container mt-4">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('info') %}
+            <div class="alert alert-primary" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+
 <main>
+
+
+
   <div class="px-4 py-5 my-5 text-center">
     <h1 class="display-5 fw-bold">Capture the flag</h1>
     <div class="col-lg-6 mx-auto">
       <p class="lead mb-4">Steganography is a way of hiding a secret message inside something .For example hiding secret within a image or audio file.</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <a href="{{url('app_score')}}" class="btn btn-primary btn-lg px-4 gap-3">Check scores</a>
-        <a class="btn btn-outline-secondary btn-lg px-4">Last riddle</a>
+        <a class="btn btn-outline-secondary btn-lg px-4" href="{{url('app_submit', {'id': lastRiddle.id})}}">Last riddle</a>
       </div>
     </div>
   </div>

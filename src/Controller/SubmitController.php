@@ -26,6 +26,14 @@ class SubmitController extends AbstractController
         $form = $this->createForm(SubmitFormType::class);
         $form->handleRequest($request);
 
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if($user->hasSolved($riddle)) {
+            $this->addFlash("info", "You already have solved this CTF!");
+            return $this->redirectToRoute("app_home");
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $submittedAnswer = $form->get("answer")->getData();
 
@@ -33,8 +41,9 @@ class SubmitController extends AbstractController
                 $this->addFlash("fail", "Wrong answer!");
             } else {
 
-                /** @var User $user */
-                $user = $this->getUser();
+
+
+
 
                 $score = new Score();
                 $score->setRiddle($riddle)
@@ -48,13 +57,14 @@ class SubmitController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
 
-                $this->addFlash("success", "Good job, you earned {$score->getScore()} point". $score->getScore() > 1 ? "s" : "" . "!");
+                $this->addFlash("success", "Good job, you earned {$score->getScore()} point". ($score->getScore() > 1 ? "s" : "") . "!");
                 return $this->redirectToRoute("app_home");
             }
         }
 
         return $this->render('submit/index.html.twig', [
             'submitForm' => $form->createView(),
+            "riddle" => $riddle
         ]);
     }
 }

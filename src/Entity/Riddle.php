@@ -42,6 +42,9 @@ class Riddle
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
+    #[ORM\Column(type: 'string', length: 500)]
+    private string $image;
+
     public function __construct()
     {
         $this->scores = new ArrayCollection();
@@ -109,5 +112,16 @@ class Riddle
     public function __toString(): string
     {
         return "{$this->getName()} - {$this->getId()}";
+    }
+
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+        return $this;
     }
 }

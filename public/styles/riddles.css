@@ -1,0 +1,32 @@
+.difficulty-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    vertical-align: middle;
+}
+
+.difficulty-indicator.easy {
+    background-color: #399839;
+    color: white;
+}
+.difficulty-indicator.normal {
+    background-color: #3168ce;
+    color: white;
+}
+.difficulty-indicator.medium {
+    background-color: rgb(255, 196, 0);
+    color: black;
+}
+.difficulty-indicator.hard {
+    background-color: #e36e22;
+    color: black;
+}
+.difficulty-indicator.impossible {
+    background-color: red;
+    color: white;
+}
