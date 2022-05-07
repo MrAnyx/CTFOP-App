@@ -16,7 +16,7 @@
         {% for user in users %}
             <tr>
                 <td>{{user.username}}</td>
-                <td>{{user.scores[0] is defined ? user.scores[0].riddle : ""}}</td>
+                <td>{{user.scores[0] is defined ? (user.scores|last).riddle : ""}}</td>
                 <td>{{user.scores|length}}</td>
                 <td>{{user.currentScore}}</td>
             </tr>
